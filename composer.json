@@ -1,0 +1,23 @@
+{
+    "name": "tivents/shopware-api-connector",
+    "description": "connect your application to your shopware shop",
+    "type": "libary",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Willi Helwig",
+            "email": "willi.helwig@tivents.de"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "guzzlehttp/guzzle": "^7"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "ShopwareApiConnector": "src/"
+        }
+    }
+}
