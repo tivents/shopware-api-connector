@@ -2,50 +2,58 @@
 
 namespace ShopwareApiConnector;
 
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Client;
 use JsonException;
 
 class ConnectorController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->restClient = new Client([
+            'base_uri' => $_ENV['shopware_url'],
+            'headers' => ['Content-Type' => 'application/json'],
+        ]);
+    }
+
     /**
      * @throws JsonException
      */
     function getAuthToken() {
-        $urlslug = 'api/oauth/token';
-        $reuqestData = array(
-            "grant_type" => "client_credentials",
-            "client_id" => $_ENV('shopware_client_id'),
-            "client_secret" => $_ENV('shopware_client_secret')
+
+        $token = $this->restClient->post(
+            '/api/oauth/token',
+            [
+                'body' => json_encode([
+                    'client_id' =>  $_ENV['shopware_client_id'],
+                    'client_secret' => $_ENV['shopware_client_secret'],
+                    'grant_type' => 'client_credentials',
+                ]),
+            ]
         );
-
-
-        $apiURL = $_ENV('shopware_url').$urlslug;
-        $headers = [
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer '.$this->getAuthToken()
-        ];
-
-        $request = new Request('POST', $apiURL, $headers, $reuqestData);
-        $auth_result = json_decode($request->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
-
-        return $auth_result['access_token'];
+        return json_decode($token->getBody()->getContents(), true);
     }
 
 
     /**
      * @throws JsonException
      */
-    public function postData($urlslug, $body) {
+    public function postData($urlslug, $body) : array
+    {
 
-        $apiURL = $_ENV('shopware_url').$urlslug;
+        $token = $this->getAuthToken();
+
         $headers = [
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer '.$this->getAuthToken()
+            'Authorization' => $token['token_type'] . ' ' . $token['access_token'],
+            'Accept' => 'application/json',
         ];
 
-        $request = new Request('POST', $apiURL, $headers, $body);
+        $response = $this->restClient->post($urlslug, [
+            'headers' => $headers,
+            'json' => json_encode($body)
+        ]);
 
-        return json_decode($request->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
 
