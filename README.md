@@ -1,0 +1,1 @@
+# shopoware-api-connector
