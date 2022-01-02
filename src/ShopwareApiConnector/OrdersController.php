@@ -2,7 +2,7 @@
 
 namespace ShopwareApiConnector;
 
-class OrdersController
+class OrdersController extends ConnectorController
 {
 
     public function listOrders($filter = null) : array
@@ -59,6 +59,6 @@ class OrdersController
             ]
         ];
 
-        return $this->apicontroller->postData('shopware', 'api/search/order', $requestBody, $this->getAuthToken());
+        return $this->postData( 'api/search/order', $requestBody);
     }
 }
