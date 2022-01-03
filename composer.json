@@ -12,7 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.2 || ^8.0",
-        "guzzlehttp/guzzle": "^7"
+        "guzzlehttp/guzzle": "^7",
+        "vin-sw/shopware-sdk": "^1"
     },
 
     "autoload": {

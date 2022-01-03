@@ -2,13 +2,20 @@
 
 namespace ShopwareApiConnector;
 
-class ProductsController extends BaseController
+class ProductsController extends ConnectorController
 {
 
     public function listProducts($filter = null) : array
     {
+        if($filter == null) {
+            $filter = [];
+        }
 
-        return $products;
+        $requestBody = [
+            "filter" => $filter,
+        ];
+
+        return $this->postData('api/search/product', $requestBody);
     }
 
     public function createProduct()
