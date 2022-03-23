@@ -2,11 +2,48 @@
 
 namespace ShopwareApiConnector;
 
+
+use Vin\ShopwareSdk\Client\AdminAuthenticator;
+use Vin\ShopwareSdk\Client\GrantType\ClientCredentialsGrantType;
+use Vin\ShopwareSdk\Client\GrantType\PasswordGrantType;
+use Vin\ShopwareSdk\Data\Context;
+use Vin\ShopwareSdk\Data\Criteria;
+use Vin\ShopwareSdk\Data\Entity\Order\OrderDefinition;
+use Vin\ShopwareSdk\Data\Filter\EqualsFilter;
+use Vin\ShopwareSdk\Factory\RepositoryFactory;
+
 class OrdersController extends ConnectorController
 {
 
-    public function listOrders($filter = null) : array
+    /**
+     * @var BaseController
+     */
+    private $baseController;
+    private mixed $shopUrl;
+    private ClientCredentialsGrantType|PasswordGrantType $grantType;
+
+    public function __construct()
     {
+        $this->baseController = new BaseController();
+        $this->grantType = $this->baseController->getGrantType();
+        $this->shopUrl = $_ENV['shopware_url'];
+    }
+
+
+    public function listOrders($filter = null) : \Vin\ShopwareSdk\Repository\Struct\EntitySearchResult
+    {
+
+        $orderRepository = RepositoryFactory::create(OrderDefinition::ENTITY_NAME);
+
+
+        $adminClient = new AdminAuthenticator($this->getGrantType(), $this->shopUrl);
+        $accessToken = $adminClient->fetchAccessToken();
+        $context = new Context($this->shopUrl, $accessToken);
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('shippingFree', true));
+
+
 
         if($filter == null) {
             $filter = [
@@ -59,6 +96,10 @@ class OrdersController extends ConnectorController
             ]
         ];
 
-        return $this->postData( 'api/search/order', $requestBody);
+        return $orderRepository->search($criteria, $context);;
+    }
+
+    function updateOrder($id) {
+        $orderRepository = RepositoryFactory::update(OrderDefinition::ENTITY_NAME);
     }
 }

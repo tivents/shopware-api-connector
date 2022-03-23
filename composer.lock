@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39e84b47eda90ef3b17dd0eca8e42ff9",
+    "content-hash": "2f2c8679cf2df1264ec372cf66b27b2f",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -606,6 +606,57 @@
                 }
             ],
             "time": "2021-11-29T18:10:03+00:00"
+        },
+        {
+            "name": "vin-sw/shopware-sdk",
+            "version": "v1.3.3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vienthuong/shopware-php-sdk.git",
+                "reference": "20ae7a23ad8429f95726c5fa81e3f98062a7848b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vienthuong/shopware-php-sdk/zipball/20ae7a23ad8429f95726c5fa81e3f98062a7848b",
+                "reference": "20ae7a23ad8429f95726c5fa81e3f98062a7848b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.0",
+                "php": "^7.4 || ^8.0",
+                "psr/http-client": "^1.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.89",
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "3.*",
+                "symfony/var-dumper": "^5.3",
+                "symplify/config-transformer": "^9.3",
+                "symplify/easy-coding-standard": "9.3.20"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Vin\\ShopwareSdk\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "vin",
+                    "email": "levienthuong@gmail.com"
+                }
+            ],
+            "description": "A PHP SDK for Shopware 6 Platform",
+            "support": {
+                "issues": "https://github.com/vienthuong/shopware-php-sdk/issues",
+                "source": "https://github.com/vienthuong/shopware-php-sdk/tree/v1.3.3"
+            },
+            "time": "2021-11-29T11:29:33+00:00"
         }
     ],
     "packages-dev": [],
@@ -615,7 +666,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2 || ^8.0"
+        "php": "^7.2 || ^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
