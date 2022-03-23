@@ -24,9 +24,10 @@ class OrdersController extends ConnectorController
 
     public function __construct()
     {
+        parent::__construct();
         $this->baseController = new BaseController();
         $this->grantType = $this->baseController->getGrantType();
-        $this->shopUrl = $_ENV['shopware_url'];
+        $this->shopUrl = $_ENV['SHOPWARE_URL'];
     }
 
 

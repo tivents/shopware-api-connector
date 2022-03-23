@@ -13,9 +13,11 @@ composer require tivents/shopware-api-connector
 Set your shopUrl, clientId and your clientSecret in a .env file like:
 
 ````
-shopware_url='https://shop.test/'
-shopware_client_id='SWCLIENTSHOPID'
-shopware_client_secret='ShopWareSuper100Percent0ZeroRisKSecret'
+SHOPWARE_AUTH_METHOD='https://shop.test/'
+SHOPWARE_AUTH_METHOD=client_crediantials
+SHOPWARE_URL='https://shop.test/'
+SHOPWARE_CLIENT_ID='SWCLIENTSHOPID'
+SHOPWARE_CLIENT_SECRET='ShopWareSuper100Percent0ZeroRisKSecret'
 ````
 
 ## Roadmap/To-Do

@@ -17,7 +17,7 @@ class BaseController
     {
 
         $grantType = match($_ENV['SHOPWARE_AUTH_METHOD']) {
-            'password_grant' =>  new PasswordGrantType($_ENV['shopware_user_name'], $_ENV['shopware_user_password']),
+            'password_grant' =>  new PasswordGrantType($_ENV['SHOPWARE_USER_NAME'], $_ENV['SHOPWARE_USER_PASSWORD']),
             'client_crediantials' => new ClientCredentialsGrantType($_ENV['SHOPWARE_CLIENT_ID'], $_ENV['SHOPWARE_CLIENT_SECRET']),
         };
 

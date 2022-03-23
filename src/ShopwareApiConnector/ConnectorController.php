@@ -11,7 +11,7 @@ class ConnectorController extends BaseController
     {
         parent::__construct();
         $this->restClient = new Client([
-            'base_uri' => $_ENV['shopware_url'],
+            'base_uri' => $_ENV['S'],
             'headers' => ['Content-Type' => 'application/json'],
         ]);
     }
@@ -25,8 +25,8 @@ class ConnectorController extends BaseController
             '/api/oauth/token',
             [
                 'body' => json_encode([
-                    'client_id' =>  $_ENV['shopware_client_id'],
-                    'client_secret' => $_ENV['shopware_client_secret'],
+                    'client_id' =>  $_ENV['SHOPWARE_CLIENT_ID'],
+                    'client_secret' => $_ENV['SHOPWARE_CLIENT_SECRET'],
                     'grant_type' => 'client_credentials',
                 ]),
             ]
